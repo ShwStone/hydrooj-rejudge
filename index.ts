@@ -5,7 +5,7 @@ import { definePlugin, Context, Schema } from 'hydrooj';
 export default definePlugin({
 	apply(ctx: Context) {
 		ctx.addScript(
-			'rejudgeProblem', 'rejudge for a certain problem',
+			'rejudgeProblem', 'rejudge for a certain problem or contest',
 			Schema.object({
 				pid: Schema.number(),
 				contest: Schema.string()
@@ -13,7 +13,7 @@ export default definePlugin({
 			(...args) => require('./scripts/problem').run(...args)
 		);
 		ctx.i18n.load('zh', {
-			'rejudge for a certain problem': '重测一道题目的所有提交'
+			'rejudge for a certain problem or contest': '重测指定题目/比赛的所有提交'
 		});
 	}
 });

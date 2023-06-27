@@ -1,12 +1,12 @@
-import { RecordDoc, RecordModel } from 'hydrooj';
+import { Schema, RecordModel } from 'hydrooj';
 
 export async function run({pid, contest}, report: Function) {
-	let filter = {};
+	let filter = Schema.object();
 	
-	if (pid && contest) filter = { pid: pid, contest: contest };
-	else if (pid) filter = { pid: pid };
-	else if (contest) filter = { contest: contest };
-	else filter = {};
+	if (pid && contest) filter = Schema.object({ pid: pid, contest: contest });
+	else if (pid) filter = Schema.object({ pid: pid });
+	else if (contest) filter = Schema.object({ contest: contest });
+	else filter = Schema.object();
 
 	const records = await RecordModel.coll.find(filter, { _id: true, domainId: true, pid: true });
 
