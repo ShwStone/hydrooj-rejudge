@@ -1,13 +1,12 @@
-import { Schema, RecordModel, problem } from 'hydrooj';
-import { ObjectId } from 'mongodb';
+import { ObjectId, RecordModel, problem } from 'hydrooj';
 
 export async function run({pid, contest}, report: Function) {
-	let filter = Schema.object();
+	let filter = {};
 	
-	if (pid && contest) filter = Schema.object({ pid: pid, contest: ObjectId(contest) });
-	else if (pid) filter = Schema.object({ pid: pid });
-	else if (contest) filter = Schema.object({ contest: ObjectId(contest) });
-	else filter = Schema.object();
+	if (pid && contest) filter = { pid: pid, contest: new ObjectId(contest) };
+	else if (pid) filter = { pid: pid };
+	else if (contest) filter = { contest: new ObjectId(contest) };
+	else filter = {};
 
 	const records = await RecordModel.coll.find(filter, { _id: true, domainId: true, pid: true });
 
